@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User } from "lucide-react";
+import { Send, Bot, User, Eraser } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -146,18 +146,46 @@ export const ChatInterface = () => {
     }
   };
 
+  const handleClearChat = () => {
+    setMessages([
+      {
+        id: "1",
+        type: "system",
+        content: "Chat cleared",
+        timestamp: new Date(),
+      },
+      {
+        id: "2",
+        type: "ai",
+        content: "Hello! How can I help you today?",
+        timestamp: new Date(),
+      },
+    ]);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-10 backdrop-blur-lg bg-background/80 border-b border-border shadow-sm">
-        <div className="flex items-center gap-3 px-6 py-4">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg animate-pulse-glow">
-            <Bot className="w-6 h-6 text-primary-foreground" />
+        <div className="flex items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg animate-pulse-glow">
+              <Bot className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-foreground">AI Assistant</h1>
+              <p className="text-xs text-muted-foreground">Always here to help</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-lg font-semibold text-foreground">AI Assistant</h1>
-            <p className="text-xs text-muted-foreground">Always here to help</p>
-          </div>
+          <Button
+            onClick={handleClearChat}
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-muted transition-all"
+            title="Clear chat"
+          >
+            <Eraser className="w-5 h-5" />
+          </Button>
         </div>
       </header>
 
